@@ -7,22 +7,19 @@ function BarChart() {
 
   //To find out the array of average of “Malic Acid” values for each class category
   const yvalue = xValue.map((category) => {
-    // Malic Acid Values array
-    const malic = WineData.filter((item) => {
-      if (category === item.Alcohol) {
-        return item;
-      }
-    }).map((item) => item['Malic Acid']);
+    let n = 0;
 
     // Sum of “Malic Acid” values
-    const sum = malic.reduce((prevValue, curVal) => {
-      return prevValue + curVal;
+    const sum = WineData.reduce((prevValue, curVal) => {
+      if (category === curVal.Alcohol) {
+        prevValue += curVal['Malic Acid'];
+        n++;
+      }
+      return prevValue;
     }, 0);
 
-    // Average
-    const avg = sum / malic.length;
-
-    return avg;
+    //Return Average
+    return sum / n;
   });
 
   const option = {
